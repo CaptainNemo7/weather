@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './HomePage';
-import TestPage from './TestPage';
+import TestPage from '../containers/TestPage';
 import NotFoundPage from './NotFoundPage';
 export default class App extends Component {
   render() {
