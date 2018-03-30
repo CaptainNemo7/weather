@@ -6,5 +6,5 @@ export default function() {
 		{title: 'Lord Of the Rings', pages:3455},
 		{title: 'The Martian', pages: 2000},
 		{title: 'The Sky Stone', pages: 305},
-	]
+	];
 }

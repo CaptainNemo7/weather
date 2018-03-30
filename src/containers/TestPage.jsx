@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { selectExampleBook } from '../actions/index';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+
+import ListDetail from './ListDetail';
 
 class TestPage extends Component {
 	constructor(props) {
@@ -10,7 +14,10 @@ class TestPage extends Component {
 	renderList() {
 		return this.props.list.map((item) => {
 			return (
-				<li key={item.title} >{item.title}</li>
+				<li 
+					key={item.title} 
+					onClick={() => this.props.selectExampleBook(item)}
+					>{item.title}</li>
 			);
 		});
 	}
@@ -24,6 +31,7 @@ class TestPage extends Component {
 				<ul>
 					{this.renderList()}
 				</ul>
+				<ListDetail />
 			</div>
 		)
 	}
@@ -36,7 +44,11 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps)(TestPage);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ selectExampleBook: selectExampleBook}, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(TestPage);
 
 
 
