@@ -6,12 +6,12 @@ import NotFoundPage from './NotFoundPage';
 export default class App extends Component {
   render() {
     return (
-    	<BrowserRouter>
-	    	<Switch>
-	        <Route exact path="/" component={HomePage} />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
           <Route path="/tests" component={TestPage} /> 
-	        <Route path="" component={NotFoundPage} />
-	      </Switch>
+          <Route path="" component={NotFoundPage} />
+        </Switch>
       </BrowserRouter>
     );
   }
