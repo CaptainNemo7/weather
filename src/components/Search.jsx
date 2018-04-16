@@ -31,7 +31,7 @@ class Search extends Component {
 			<div>
 				<form onSubmit={this.submitLocation}>
 					<input
-						placeholder='Enter a city'
+						placeholder='Enter a location'
 						value={this.state.term}
 						onChange={this.updateLocation}
 					/>

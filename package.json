@@ -31,6 +31,7 @@
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",
     "react": "15.6.1",
+    "react-animated-weather": "^1.0.3",
     "react-dom": "15.6.1",
     "react-router": "^2.0.1",
     "react-router-dom": "4.1.1"
