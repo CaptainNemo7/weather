@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import Container from '../styles/Container';
+import Form from '../styles/Form';
+import Button from '../styles/Button';
+import Input from '../styles/Input';
+
 
 class Search extends Component {
 	constructor(props) {
@@ -28,19 +33,20 @@ class Search extends Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.submitLocation}>
-					<input
+			<Container>
+				<Form onSubmit={this.submitLocation}>
+					<Input
 						placeholder='Enter a location'
 						value={this.state.term}
 						onChange={this.updateLocation}
 					/>
-					<input 
+					<Button 
 						type='submit'
 						value='submit'
-					/>
-				</form>
-			</div>
+					>Search</Button>
+
+				</Form>
+			</Container>
 		)
 	}
 }

@@ -1,11 +1,15 @@
 import React from 'react';
 import Day from './Day';
 
+import Container from '../styles/Container';
+import Ul from '../styles/Ul';
+
+
 const DaysList = ({ locationName, days }) => {
   const weekday = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 
   if ( days.length === 0 ) {
-    return <div>Search a location!</div>
+    return <h1>Search any Location in the World!</h1>
   }
 
   const makeDay = days.slice(0,7).map(day => {
@@ -28,12 +32,12 @@ const DaysList = ({ locationName, days }) => {
   })
 
   return (
-    <div>
+    <Container dayList>
       <h2>Searched: {locationName}</h2>
-      <ul>
+      <Ul>
         {makeDay}
-      </ul>
-    </div>
+      </Ul>
+    </Container>
   )
 }
 

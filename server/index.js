@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+const moment = require('moment');
 // const db = require('../database/index')
-const APIKeys = require('../apiKeys')
-
+const APIKeys = process.env.darkSkyWeatherAPIKey;
 let bodyParser = require('body-parser');
 
 
@@ -47,14 +47,53 @@ app.get('/', (req,res) => {
 app.get('/search', (req,res) => {
   let lat = req.query.lat;
   let lng = req.query.lng;
+  let graphData = {};
+  let currentWeather;
 
+  let five = moment().subtract(5, 'years').unix();
+  let two = moment().subtract(2, 'years').unix();
+  let one = moment().subtract(1, 'years').unix();
+
+  // api calls to set graph data and curent weather data
   axios.get(`https://api.darksky.net/forecast/${APIKeys.Keys.darkSkyWeatherAPIKey}/${lat},${lng}`)
     .then((weatherData) => {
-      let weather = weatherData.data;
-      res.send(weather);
+      // initial data and current highs and lows
+      currentWeather = weatherData.data;
+      graphData.currentLow = currentWeather.daily.data[0].temperatureLow;
+      graphData.currentHigh =  currentWeather.daily.data[0].temperatureHigh;
+    })
+    .then((weather) => {
+      axios.get(`https://api.darksky.net/forecast/${APIKeys.Keys.darkSkyWeatherAPIKey}/${lat},${lng},${five}`)
+      .then((newData) => {
+        // get five year data
+        graphData.fiveLow = newData.data.daily.data[0].temperatureLow;
+        graphData.fiveHigh = newData.data.daily.data[0].temperatureHigh; 
+        axios.get(`https://api.darksky.net/forecast/${APIKeys.Keys.darkSkyWeatherAPIKey}/${lat},${lng},${two}`)
+        .then((moreData) => {
+          // get two year data
+          graphData.twoLow = moreData.data.daily.data[0].temperatureLow;
+          graphData.twoHigh = moreData.data.daily.data[0].temperatureHigh; 
+          axios.get(`https://api.darksky.net/forecast/${APIKeys.Keys.darkSkyWeatherAPIKey}/${lat},${lng},${one}`)
+          .then((finalData) => {
+            // get one year data and send over to client
+            graphData.oneLow = finalData.data.daily.data[0].temperatureLow;
+            graphData.oneHigh = finalData.data.daily.data[0].temperatureHigh; 
+            res.send([currentWeather, graphData]);
+          })
+          .catch(error => {
+            console.log('year one error: ', error);
+          })
+        })
+        .catch(error => {
+          console.log('year two error: ', error);
+        })
+      })
+      .catch(error => {
+        console.log('year five error: ', error);
+      })
     })
     .catch((error) => {
-      console.log('Error: ', error)
+      console.log('current year Error: ', error);
     })
 })
 

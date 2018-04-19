@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactAnimatedWeather from 'react-animated-weather';
 
+import Li from '../styles/Li';
+
+
 const Day = (props) => {
   let icon = props.icon.replace(/-/g, '_').toUpperCase();
-  // console.log(icon)
   return (
-    <li>
+    <Li>
       <h2>{props.currentDay}</h2>
 
       <h3>{props.summary}</h3>
@@ -17,8 +19,9 @@ const Day = (props) => {
         animate={true} 
       />
       
-      <div>Temperature Range: {props.tempLow} to {props.tempHigh}</div>   
-    </li>
+      <p>Temperature Range:</p>  
+      <p>{props.tempLow} to {props.tempHigh}</p>
+    </Li>
   );
 }
 
